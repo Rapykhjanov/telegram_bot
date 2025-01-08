@@ -2,8 +2,10 @@ import asyncio
 from aiogram import Dispatcher, types, Bot
 from aiogram.filters import Command
 import random
+import logging
+from dotenv import dotenv_values
 
-token = "8099448692:AAFMdfN_yypWuYlC6s8peqQpP2qzc2lbk_g"
+token = dotenv_values(".env")["BOT_TOKEN"]
 bot = Bot(token=token)
 dp = Dispatcher()
 
@@ -32,6 +34,7 @@ async def random_handler(message: types.Message):
     selected_name = random.choice(random_name)
     await message.answer(f"Случайное имя: {selected_name}")
 
+
 @dp.message()
 async def echo_handler(message):
     await message.answer("Привет")
@@ -42,4 +45,5 @@ async def main():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     asyncio.run(main())
