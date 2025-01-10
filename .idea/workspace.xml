@@ -5,6 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b218dada-c828-4bc2-9760-adc1e30f63c1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/bot_config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handlers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handlers/myinfo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handlers/other_massages.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handlers/random.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handlers/start.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -47,6 +53,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\PycharmProjects\group_49_bot\handlers" />
       <recent name="C:\Users\user\PycharmProjects\group_49_bot" />
     </key>
   </component>
@@ -99,7 +106,9 @@
       <workItem from="1736160953713" duration="3965000" />
       <workItem from="1736240518341" duration="4000" />
       <workItem from="1736330960388" duration="1890000" />
-      <workItem from="1736335886378" duration="277000" />
+      <workItem from="1736335886378" duration="2548000" />
+      <workItem from="1736420224050" duration="1682000" />
+      <workItem from="1736501620887" duration="2218000" />
     </task>
     <servers />
   </component>
