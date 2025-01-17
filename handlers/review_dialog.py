@@ -2,6 +2,8 @@ from aiogram import Router, F, types
 from aiogram.fsm.state import StatesGroup, State, default_state
 from aiogram.fsm.context import FSMContext
 
+from bot_config import database
+
 review_router = Router()
 
 
@@ -69,7 +71,7 @@ async def process_food_rating(message: types.Message, state: FSMContext):
 @review_router.message(RestourantReview.extra_comments)
 async def process_extra_comments(message: types.Message, state: FSMContext):
     extra_comments = message.text
-    await state.update_data(extra_comments=extra_comments)
+    await state.update_data(complaint=extra_comments)
     data = await state.get_data()
     summary = (
         f"Спасибо за ваш отзыв!\n"
@@ -79,4 +81,9 @@ async def process_extra_comments(message: types.Message, state: FSMContext):
         f"Дополнительные комментарии: {data.get('extra_comments')}"
     )
     await message.answer(summary)
+    try:
+        database.save_complaint(data)
+        await message.answer("Ваш отзыв сохранён!")
+    except Exception as e:
+        await message.answer(f"Ошибка сохранения отзыва: {e}")
     await state.clear()
