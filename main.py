@@ -8,6 +8,7 @@ from handlers.random import random_router
 from handlers.myinfo import myinfo_router
 from handlers.other_massages import echo_router
 from handlers.review_dialog import review_router
+from handlers.dish_fsm import dish_router
 
 
 async def on_startup(bot: Bot):
@@ -21,6 +22,7 @@ async def main():
     dp.include_router(random_router)
     dp.include_router(myinfo_router)
     dp.include_router(start_router)
+    dp.include_router(dish_router)
     # в самом конце
     dp.include_router(echo_router)
 
