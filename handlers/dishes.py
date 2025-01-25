@@ -20,7 +20,6 @@ async def start_add_dish(message: types.Message, state: FSMContext):
     await state.set_state(DishFSM.name)
 
 
-# Обработчик ввода названия блюда
 @dishes_router.message(DishFSM.name)
 async def enter_dish_name(message: types.Message, state: FSMContext):
     await state.update_data(name=message.text)
@@ -52,14 +51,13 @@ async def enter_dish_price(message: types.Message, state: FSMContext):
             "price": data.get("price"),
         })
 
-        # Уведомляем пользователя об успешном добавлении
         await message.answer(f"Блюдо '{data['name']}' успешно добавлено!")
         await state.clear()
 
     except ValueError:
-        # Если введено некорректное число
+
         await message.answer("Ошибка! Введите корректную цену")
 
     except Exception as e:
-        # Обработка ошибок при сохранении в базу данных
+
         await message.answer(f"Произошла ошибка при добавлении блюда: {e}")
