@@ -499,7 +499,7 @@
     <routine id="190" parent="1" name="fts5"/>
     <schema id="191" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2025-01-22.12:07:30</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-01-24.17:16:59</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="192" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1592,145 +1592,169 @@
     </argument>
     <table id="555" parent="191" name="complaints"/>
     <table id="556" parent="191" name="dish"/>
-    <table id="557" parent="191" name="menu"/>
-    <table id="558" parent="191" name="sqlite_master">
+    <table id="557" parent="191" name="dishes"/>
+    <table id="558" parent="191" name="menu"/>
+    <table id="559" parent="191" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="559" parent="191" name="sqlite_sequence">
+    <table id="560" parent="191" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <table id="560" parent="191" name="survey_results"/>
-    <column id="561" parent="555" name="id">
+    <table id="561" parent="191" name="survey_results"/>
+    <column id="562" parent="555" name="id">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="562" parent="555" name="name">
+    <column id="563" parent="555" name="name">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="563" parent="555" name="contact">
+    <column id="564" parent="555" name="contact">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="564" parent="555" name="food_rating">
+    <column id="565" parent="555" name="food_rating">
       <Position>4</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="565" parent="555" name="complaint">
+    <column id="566" parent="555" name="complaint">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <key id="566" parent="555">
+    <key id="567" parent="555">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="567" parent="556" name="id">
+    <column id="568" parent="556" name="id">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="568" parent="556" name="food_name">
+    <column id="569" parent="556" name="food_name">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="569" parent="556" name="price">
+    <column id="570" parent="556" name="price">
       <Position>3</Position>
       <StoredType>FLOAT|0s</StoredType>
     </column>
-    <column id="570" parent="556" name="description">
+    <column id="571" parent="556" name="description">
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="571" parent="556" name="category">
+    <column id="572" parent="556" name="category">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="572" parent="556" name="portion">
+    <column id="573" parent="556" name="portion">
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <key id="573" parent="556">
+    <key id="574" parent="556">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="574" parent="557" name="id">
+    <column id="575" parent="557" name="id">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="575" parent="557" name="food_name">
+    <column id="576" parent="557" name="name">
+      <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
-    </column>
-    <column id="576" parent="557" name="price">
-      <Position>3</Position>
-      <StoredType>FLOAT|0s</StoredType>
     </column>
     <column id="577" parent="557" name="description">
-      <Position>4</Position>
-      <StoredType>TEXT|0s</StoredType>
-    </column>
-    <column id="578" parent="557" name="category">
-      <Position>5</Position>
-      <StoredType>TEXT|0s</StoredType>
-    </column>
-    <column id="579" parent="557" name="portion">
-      <Position>6</Position>
-      <StoredType>TEXT|0s</StoredType>
-    </column>
-    <key id="580" parent="557">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="581" parent="558" name="type">
-      <Position>1</Position>
-      <StoredType>TEXT|0s</StoredType>
-    </column>
-    <column id="582" parent="558" name="name">
-      <Position>2</Position>
-      <StoredType>TEXT|0s</StoredType>
-    </column>
-    <column id="583" parent="558" name="tbl_name">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="584" parent="558" name="rootpage">
+    <column id="578" parent="557" name="price">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StoredType>FLOAT|0s</StoredType>
+    </column>
+    <key id="579" parent="557">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="580" parent="558" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <Position>1</Position>
+      <StoredType>INTEGER|0s</StoredType>
+    </column>
+    <column id="581" parent="558" name="food_name">
+      <Position>2</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <column id="582" parent="558" name="price">
+      <Position>3</Position>
+      <StoredType>FLOAT|0s</StoredType>
+    </column>
+    <column id="583" parent="558" name="description">
+      <Position>4</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <column id="584" parent="558" name="category">
+      <Position>5</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <column id="585" parent="558" name="portion">
+      <Position>6</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <key id="586" parent="558">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="587" parent="559" name="type">
+      <Position>1</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <column id="588" parent="559" name="name">
+      <Position>2</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <column id="589" parent="559" name="tbl_name">
+      <Position>3</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <column id="590" parent="559" name="rootpage">
       <Position>4</Position>
       <StoredType>INT|0s</StoredType>
     </column>
-    <column id="585" parent="558" name="sql">
+    <column id="591" parent="559" name="sql">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="586" parent="559" name="name">
+    <column id="592" parent="560" name="name">
       <Position>1</Position>
     </column>
-    <column id="587" parent="559" name="seq">
+    <column id="593" parent="560" name="seq">
       <Position>2</Position>
     </column>
-    <column id="588" parent="560" name="id">
+    <column id="594" parent="561" name="id">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="589" parent="560" name="name">
+    <column id="595" parent="561" name="name">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="590" parent="560" name="contact">
+    <column id="596" parent="561" name="contact">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="591" parent="560" name="food_rating">
+    <column id="597" parent="561" name="food_rating">
       <Position>4</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="592" parent="560" name="extra_comments">
+    <column id="598" parent="561" name="extra_comments">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <key id="593" parent="560">
+    <key id="599" parent="561">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
