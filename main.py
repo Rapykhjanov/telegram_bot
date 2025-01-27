@@ -7,7 +7,8 @@ from handlers.random import random_router
 from handlers.myinfo import myinfo_router
 from handlers.other_massages import echo_router
 from handlers.review_dialog import review_router
-from handlers.dishes import dishes_router
+from handlers.dish_fsm import menu_management_router
+from handlers.dishes import menu_list_router
 
 
 async def on_startup(bot: Bot):
@@ -26,7 +27,8 @@ async def main():
         dp.include_router(random_router)
         dp.include_router(myinfo_router)
         dp.include_router(start_router)
-        dp.include_router(dishes_router)
+        dp.include_router(menu_management_router)
+        dp.include_router(menu_list_router)
         dp.include_router(echo_router)
 
         dp.startup.register(on_startup)

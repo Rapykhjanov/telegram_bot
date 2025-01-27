@@ -18,43 +18,38 @@ class Database:
                 )
             """)
             conn.execute("""
-                CREATE TABLE IF NOT EXISTS dishes (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    food_name TEXT NOT NULL,
-                    food_description TEXT,
-                    price FLOAT NOT NULL
-                )
-            """)
+                            CREATE TABLE IF NOT EXISTS menu (
+                                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                food_name TEXT,
+                                price FLOAT,
+                                description TEXT,
+                                category TEXT,
+                                portion TEXT)
+                                    """)
             conn.commit()
 
-    def save_dish(self, data: dict):
-
-        try:
-            with sqlite3.connect(self.path) as conn:
-                conn.execute(
-                    """
-                    INSERT INTO dishes
-                    (food_name, food_description, price)
-                    VALUES (?, ?, ?)
-                    """,
-                    (
-                        data.get("food_name"),
-                        data.get("food_description"),
-                        data.get("price")
-                    )
+    def save_menu(self, data: dict):
+        with sqlite3.connect(self.path) as conn:
+            conn.execute(
+                """
+                INSERT INTO menu 
+                (food_name, price, description, category, portion)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (
+                    data.get("food_name"),
+                    data.get("price"),
+                    data.get("description"),
+                    data.get("category"),
+                    data.get("portion")
                 )
-                conn.commit()
-        except Exception as e:
-            print(f"Ошибка при добавлении блюда: {e}")
+            )
+            conn.commit()
 
-    def get_dishes(self):
+    def get_menu_list(self):
+        with sqlite3.connect(self.path) as conn:
+            result = conn.execute("SELECT * from menu")
+            result.row_factory = sqlite3.Row
+            data = result.fetchall()
 
-        try:
-            with sqlite3.connect(self.path) as conn:
-                conn.row_factory = sqlite3.Row
-                result = conn.execute("SELECT * FROM dishes")
-                data = result.fetchall()
-                return [dict(row) for row in data]
-        except Exception as e:
-            print(f"Ошибка при получении списка блюд: {e}")
-            return []
+            return [dict(row) for row in data]

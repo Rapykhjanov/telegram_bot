@@ -1,14 +1,15 @@
 from aiogram import Router, F, types
-from aiogram.fsm.state import StatesGroup, State
+from aiogram.fsm.state import StatesGroup, State, default_state
 from aiogram.fsm.context import FSMContext
-from aiogram.filters import Command
 from bot_config import database
+from dotenv import dotenv_values
 
-dish_router = Router()
-dish_router.message.filter(F.from_user.id == 5439294222 )
+menu_management_router = Router()
+
+menu_id = dotenv_values(".env")["ADMIN_ID"]
 
 
-class Dish(StatesGroup):
+class Menu(StatesGroup):
     food_name = State()
     price = State()
     description = State()
@@ -16,60 +17,71 @@ class Dish(StatesGroup):
     portion = State()
 
 
-@dish_router.message(Command("dish_add"))
-async def start_dish(message: types.Message, state: FSMContext):
-    await message.answer("Введите название блюда:")
-    await state.set_state(Dish.food_name)
+@menu_management_router.callback_query(F.data == "menu", default_state)
+async def create_menu(callback: types.CallbackQuery, state: FSMContext):
+    if callback.from_user.id == int(menu_id):
+        await callback.message.answer("Введите название блюда: ")
+        await state.set_state(Menu.food_name)
+    else:
+        await callback.answer("У вас нет прав для добавления меню.")
 
 
-@dish_router.message(Dish.food_name)
+@menu_management_router.message(Menu.food_name)
 async def process_name(message: types.Message, state: FSMContext):
-    await state.update_data(name=message.text)
-    await message.answer("Введите цену (число):")
-    await state.set_state(Dish.price)
+    name = message.text.strip()
+    await state.update_data(food_name=name)
+    await message.answer("Введите цену (число): ")
+    await state.set_state(Menu.price)
 
 
-@dish_router.message(Dish.price)
+@menu_management_router.message(Menu.price)
 async def process_price(message: types.Message, state: FSMContext):
     try:
-        price = float(message.text)
+        price = float(message.text.strip())
         await state.update_data(price=price)
-        await message.answer("Введите описание для блюда:")
-        await state.set_state(Dish.description)
+        await message.answer("Введите описание для блюда: ")
+        await state.set_state(Menu.description)
     except ValueError:
-        await message.answer("Цена должна быть числом. Попробуйте ещё раз:")
+        await message.answer("Пожалуйста, введите корректное число для цены.")
 
 
-@dish_router.message(Dish.description)
+@menu_management_router.message(Menu.description)
 async def process_description(message: types.Message, state: FSMContext):
-    await state.update_data(description=message.text)
-    await message.answer("Введите категорию (супы, вторые, горячие напитки, холодные напитки и т.д.):")
-    await state.set_state(Dish.category)
+    description = message.text.strip()
+    await state.update_data(description=description)
+    await message.answer("Введите категорию (супы, вторые, горячие напитки, холодные напитки и т.д.): ")
+    await state.set_state(Menu.category)
 
 
-@dish_router.message(Dish.category)
+@menu_management_router.message(Menu.category)
 async def process_category(message: types.Message, state: FSMContext):
-    await state.update_data(category=message.text)
-    await message.answer("Введите варианты порций:")
-    await state.set_state(Dish.portion)
+    category = message.text.strip()
+    await state.update_data(category=category)
+    await message.answer("Введите размер порции (например, 200г, 0.5л и т.д.): ")
+    await state.set_state(Menu.portion)
 
 
-@dish_router.message(Dish.portion)
+@menu_management_router.message(Menu.portion)
 async def process_portion(message: types.Message, state: FSMContext):
-    await state.update_data(portion=message.text)
+    portion = message.text.strip()
+    await state.update_data(portion=portion)
+
     data = await state.get_data()
-
-    # Отображение данных пользователю
-    await message.answer(
-        f"Название: {data['name']}\n"
-        f"Цена: {data['price']}\n"
-        f"Описание: {data['description']}\n"
-        f"Категория: {data['category']}\n"
-        f"Порции: {data['portion']}"
+    summary = (
+        f"Спасибо за добавление блюда!\n"
+        f"Название: {data.get('food_name')}\n"
+        f"Цена: {data.get('price')}\n"
+        f"Описание: {data.get('description')}\n"
+        f"Категория: {data.get('category')}\n"
+        f"Размер порции: {data.get('portion')}"
     )
+    await message.answer(summary)
 
-    # Сохранение данных в базу
-    database.save_dish(data)
+    try:
+        print("Данные для сохранения:", data)
+        database.save_menu(data)
+        await message.answer("Ваше блюдо сохранено!")
+    except Exception as e:
+        await message.answer(f"Ошибка сохранения блюда: {e}")
 
-    await message.answer("Спасибо, блюдо было сохранено!")
     await state.clear()
