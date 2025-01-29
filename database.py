@@ -24,7 +24,8 @@ class Database:
                                 price FLOAT,
                                 description TEXT,
                                 category TEXT,
-                                portion TEXT)
+                                portion TEXT,
+                                cover TEXT)
                                     """)
             conn.commit()
 
@@ -33,15 +34,16 @@ class Database:
             conn.execute(
                 """
                 INSERT INTO menu 
-                (food_name, price, description, category, portion)
-                VALUES (?, ?, ?, ?, ?)
+                (food_name, price, description, category, portion, cover)
+                VALUES (?, ?, ?, ?, ?, ?)
                 """,
                 (
                     data.get("food_name"),
                     data.get("price"),
                     data.get("description"),
                     data.get("category"),
-                    data.get("portion")
+                    data.get("portion"),
+                    data.get("cover")
                 )
             )
             conn.commit()
@@ -53,3 +55,45 @@ class Database:
             data = result.fetchall()
 
             return [dict(row) for row in data]
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

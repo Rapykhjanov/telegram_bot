@@ -15,6 +15,7 @@ class Menu(StatesGroup):
     description = State()
     category = State()
     portion = State()
+    cover = State()
 
 
 @menu_management_router.callback_query(F.data == "menu", default_state)
@@ -65,23 +66,79 @@ async def process_category(message: types.Message, state: FSMContext):
 async def process_portion(message: types.Message, state: FSMContext):
     portion = message.text.strip()
     await state.update_data(portion=portion)
+    await message.answer("Теперь загрузите изображение блюда:")
+    await state.set_state(Menu.cover)
 
+
+@menu_management_router.message(Menu.cover)
+async def process_cover(message: types.Message, state: FSMContext):
+    if message.photo:
+        # Берем фотографию в лучшем качестве
+        photo = message.photo[-1]
+        file_id = photo.file_id
+        await state.update_data(cover=file_id)
+        await finalize_menu_creation(message, state, cover=file_id)
+    else:
+        await message.answer("Пожалуйста, загрузите изображение блюда.")
+
+
+async def finalize_menu_creation(message: types.Message, state: FSMContext, cover=None):
     data = await state.get_data()
+
     summary = (
         f"Спасибо за добавление блюда!\n"
         f"Название: {data.get('food_name')}\n"
         f"Цена: {data.get('price')}\n"
         f"Описание: {data.get('description')}\n"
         f"Категория: {data.get('category')}\n"
-        f"Размер порции: {data.get('portion')}"
+        f"Размер порции: {data.get('portion')}\n"
+        f"Изображение добавлено!"
     )
     await message.answer(summary)
 
     try:
-        print("Данные для сохранения:", data)
+        data['cover'] = cover  # Добавляем ссылку на изображение в данные
         database.save_menu(data)
         await message.answer("Ваше блюдо сохранено!")
     except Exception as e:
         await message.answer(f"Ошибка сохранения блюда: {e}")
 
     await state.clear()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

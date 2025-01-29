@@ -12,10 +12,18 @@ async def show_all_menu(callback: types.CallbackQuery):
 
     for menu in menu_list:
         portion = menu["portion"]
+        cover = menu.get("cover")  # Получаем cover, если он есть
+
         txt = (f"Name: {menu['food_name']}\n"
                f"Price: {menu['price']}\n"
                f"Description: {menu['description']}\n"
                f"Category: {menu['category']}\n"
                f"Portion: {portion}")
 
-        await callback.message.answer(txt)
+
+        if cover:
+            await callback.message.answer_photo(photo=cover, caption=txt)
+        else:
+            await callback.message.answer(txt)
+
+
