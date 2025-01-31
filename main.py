@@ -9,6 +9,8 @@ from handlers.other_massages import echo_router
 from handlers.review_dialog import review_router
 from handlers.dish_fsm import menu_management_router
 from handlers.dishes import menu_list_router
+from handlers.group_managament import group_router
+
 
 
 async def on_startup(bot: Bot):
@@ -30,7 +32,8 @@ async def main():
         dp.include_router(menu_management_router)
         dp.include_router(menu_list_router)
         dp.include_router(echo_router)
-
+        dp.include_router(group_router)
+ 
         dp.startup.register(on_startup)
 
         await dp.start_polling(bot)
